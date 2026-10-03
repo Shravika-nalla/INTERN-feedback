@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feedback Form for Interns</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Great+Vibes&family=Pacifico&display=swap">
+<style>
+:root{--bg:#fff;--fg:#111;--mut:#555;--line:#333;--box:#e0f2fc;--bd:#8cc6eb;--acc:#1e64aa;--card:#f4f9fd;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181c;--fg:#eee;--mut:#aaa;--line:#888;--box:#1d2b38;--bd:#3d6a8c;--acc:#6cb4f0;--card:#1b2026}}
+:root[data-theme="dark"]{--bg:#15181c;--fg:#eee;--mut:#aaa;--line:#888;--box:#1d2b38;--bd:#3d6a8c;--acc:#6cb4f0;--card:#1b2026}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:820px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:26px;margin:4px 0 14px}.hd{text-align:center;border-bottom:2px solid var(--line);margin-bottom:10px}.inst{font-size:15px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--acc)}h2{font-size:18px;margin:30px 0 8px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.tab{border:1px solid var(--bd);background:var(--card);color:var(--fg);padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit}
+.tab.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;border-top:1.5px solid var(--line);border-bottom:1.5px solid var(--line);padding:12px 0}
+label.f{display:block;font-size:12px;color:var(--mut)}
+input[type=text],textarea{width:100%;font:inherit;color:var(--fg);background:var(--box);border:1px solid var(--bd);padding:8px;border-radius:3px;margin-top:3px}
+textarea{min-height:150px;resize:vertical}
+.wrap{overflow-x:auto;border-top:1.5px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{border-bottom:1px solid var(--line);padding:11px 6px;text-align:center}
+th{font-size:12.5px}th:first-child,td:first-child{text-align:left;width:38%}
+td input{appearance:none;-webkit-appearance:none;width:24px;height:24px;border:2px solid var(--bd);border-radius:50%;background:var(--box);cursor:pointer;margin:0;vertical-align:middle}
+td input:checked{background:radial-gradient(var(--acc) 0 45%,var(--box) 50%);border-color:var(--acc)}
+td input:hover{border-color:var(--acc)}
+.sigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;border-top:1.5px solid var(--line);padding-top:16px}
+.sig{height:130px;border:1px solid var(--bd);background:var(--box);border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--mut);margin-top:6px;overflow:hidden}
+.sig img{max-width:100%;max-height:100%;background:#fff}
+.sig:hover{border-color:var(--acc)}
+.sigs b{font-size:14px}.sigs small{color:var(--mut)}
+.bar{margin-top:30px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+button.pri{background:var(--acc);color:#fff;border:0;padding:12px 22px;border-radius:6px;font-family:inherit;font-weight:600;font-size:15px;cursor:pointer}
+button.sec{background:transparent;color:var(--fg);border:1px solid var(--bd);padding:10px 16px;border-radius:6px;font:inherit;cursor:pointer}
+#msg{color:var(--mut);font-size:13px}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+#ov.on{display:flex}
+.modal{background:var(--bg);border-radius:10px;padding:16px;width:100%;max-width:640px}
+canvas{width:100%;aspect-ratio:8/3;background:#fff;border:2px dashed var(--bd);border-radius:6px;touch-action:none;cursor:crosshair;display:block}
+.fonts{display:none;gap:8px;margin-top:10px;flex-wrap:wrap}.fonts.on{display:flex}
+.fb{flex:1;min-width:150px;border:1px solid var(--bd);background:#fff;color:#0b1f3a;border-radius:6px;padding:8px 10px;font-size:26px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb.on{border:2px solid var(--acc);box-shadow:0 0 0 2px var(--acc) inset}
+.row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;justify-content:flex-end;align-items:center}
+</style>
+</head>
+<body>
+<main>
+<div class="hd"><div class="inst">Indian Institute of Technology, Kharagpur</div><h1>Feedback Form for Interns</h1></div>
+<div class="tabs" id="tabs"></div>
+<div id="form"></div>
+<div class="bar"><button class="pri" id="dl">Download PDF</button><span id="msg"></span></div>
+</main>
+
+<div id="ov"><div class="modal">
+ <b id="mt">Sign here</b>
+ <p style="margin:4px 0 10px;color:var(--mut);font-size:13px">Draw with your mouse, finger or pen, or type your name and pick a font style.</p>
+ <canvas id="cv" width="800" height="300"></canvas>
+ <input type="text" id="typed" placeholder="Or type your name instead">
+ <div class="fonts" id="fonts"></div>
+ <div class="row"><button class="sec" id="clr">Clear</button><button class="sec" id="cnl">Cancel</button><button class="pri" id="ok">Done</button></div>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const NAMES=["Nalla Shravika Reddy","Vallakati Krishna Vamshi"];
+const LV=["Poor","Fair","Good","Very Good","Excellent"];
+const SEC=[
+ {t:"Communication and Collaboration",k:"c",q:["Is punctual and reliable.","Participates actively in discussions and meetings.","Listens and responds well to feedback.","Works effectively as part of a team."]},
+ {t:"Work Performance",k:"p",q:["Completes tasks accurately and on time.","Demonstrates initiative and willingness to learn.","Adapts to new tasks and environments quickly.","Shows attention to detail and quality of work."]}];
+const ROLL=["23EE10043","23EE10077"];
+const FIELDS=[["name","Name"],["roll","Roll No."],["year","Academic Year of Internship"],["org","Name of the Organisation"],["place","Place of Organisation"],["role","Role"],["doj","Date of Joining"],["doe","End of Internship"],["dur","Internship Duration"],["sup","Supervisor Name"],["by","Supervised By"]];
+const LBL=Object.fromEntries(FIELDS);
+const S=NAMES.map((n,i)=>({name:n,roll:ROLL[i],year:"2025-2026",org:"IBM India",place:"Bangalore, India",role:"Logic Design Intern",doj:"May 8, 2026",doe:"July 7, 2026",dur:"2 months",sup:"Tarjinder Singh",by:"Rajat Rao",r:{},remarks:"",sig:{m:null}}));
+let cur=0;const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+
+function render(){
+ $("tabs").innerHTML=NAMES.map((n,i)=>`<button class="tab ${i==cur?"on":""}" data-i="${i}">${n}</button>`).join("");
+ const s=S[cur];
+ const fld=(k,l)=>`<div><label class="f">${l}<input type="text" data-f="${k}" value="${esc(s[k])}"></label></div>`;
+ let h=`<h2>Intern Details</h2><div class="grid">${FIELDS.map(([k,l])=>fld(k,l)).join("")}</div>`;
+ SEC.forEach(sc=>{
+  h+=`<h2>${sc.t}</h2><div class="wrap"><table><tr><th>Criteria</th>${LV.map(l=>`<th>${l}</th>`).join("")}</tr>`;
+  sc.q.forEach((q,i)=>{const key=sc.k+i;
+   h+=`<tr><td>${q}</td>${LV.map((l,j)=>`<td><input type="radio" name="${key}" data-k="${key}" value="${j}" aria-label="${l}" ${s.r[key]===j?"checked":""}></td>`).join("")}</tr>`});
+  h+=`</table></div>`});
+ h+=`<h2>Overall Evaluation</h2><label class="f" style="font-size:15px;color:var(--fg)">Remarks<textarea id="rem">${esc(s.remarks)}</textarea></label>`;
+ h+=`<h2>Signatures</h2><div class="sigs">`+[["m","Manager Signature"]].map(([k,l])=>
+  `<div><b>${l}</b><div class="sig" data-s="${k}" tabindex="0">${s.sig[k]?`<img src="${s.sig[k]}" alt="${l}">`:"Tap to sign"}</div><small>${s.sig[k]?"Tap to sign again":""}</small></div>`).join("")+`</div>`;
+ $("form").innerHTML=h;status();
+}
+function status(){const n=Object.keys(S[cur].r).length;$("msg").textContent=`${n} of 8 ratings selected`}
+document.addEventListener("click",e=>{
+ const t=e.target.closest(".tab");if(t){cur=+t.dataset.i;render();return}
+ const g=e.target.closest(".sig");if(g)openPad(g.dataset.s);
+});
+document.addEventListener("keydown",e=>{if(e.key=="Enter"&&e.target.classList.contains("sig"))openPad(e.target.dataset.s)});
+document.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){S[cur].r[k]=+e.target.value;status()}});
+document.addEventListener("input",e=>{const f=e.target.dataset.f;if(f)S[cur][f]=e.target.value;if(e.target.id=="rem")S[cur].remarks=e.target.value});
+
+/* signature pad */
+const cv=$("cv"),cx=cv.getContext("2d");let who=null,draw=false,dirty=false;
+const FONTS=['"Dancing Script",cursive','"Great Vibes",cursive','"Pacifico",cursive'];let fi=0;
+function blank(){cx.clearRect(0,0,800,300);dirty=false;$("typed").value="";fi=0;paintTyped(true)}
+async function paintTyped(skipCanvas){
+ const t=$("typed").value.trim(),fb=$("fonts");
+ fb.classList.toggle("on",!!t);
+ fb.innerHTML=FONTS.map((f,i)=>`<button type="button" class="fb ${i==fi?"on":""}" data-i="${i}" style="font-family:${f}">${esc(t)}</button>`).join("");
+ if(skipCanvas===true||!t)return;
+ try{await document.fonts.load(`80px ${FONTS[fi]}`)}catch(e){}
+ cx.clearRect(0,0,800,300);cx.fillStyle="#0b1f3a";cx.textBaseline="middle";
+ let sz=110;cx.font=`${sz}px ${FONTS[fi]}`;
+ while(cx.measureText(t).width>760&&sz>24){sz-=4;cx.font=`${sz}px ${FONTS[fi]}`}
+ cx.fillText(t,20,150);dirty=true;
+}
+$("typed").addEventListener("input",()=>paintTyped());
+$("fonts").addEventListener("click",e=>{const b=e.target.closest(".fb");if(b){fi=+b.dataset.i;paintTyped()}});
+function openPad(k){who=k;blank();$("mt").textContent="Manager Signature";$("ov").classList.add("on")}
+function pt(e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*800/r.width,(e.clientY-r.top)*300/r.height]}
+cv.addEventListener("pointerdown",e=>{draw=true;cv.setPointerCapture(e.pointerId);const[x,y]=pt(e);cx.strokeStyle="#0b1f3a";cx.lineWidth=4;cx.lineCap=cx.lineJoin="round";cx.beginPath();cx.moveTo(x,y);cx.lineTo(x+.1,y+.1);cx.stroke();dirty=true});
+cv.addEventListener("pointermove",e=>{if(!draw)return;const[x,y]=pt(e);cx.lineTo(x,y);cx.stroke()});
+["pointerup","pointercancel"].forEach(ev=>cv.addEventListener(ev,()=>{draw=false}));
+$("clr").onclick=blank;
+$("cnl").onclick=()=>$("ov").classList.remove("on");
+$("ok").onclick=()=>{
+ if(!dirty){$("cnl").click();return}
+ S[cur].sig[who]=cv.toDataURL("image/png");$("ov").classList.remove("on");render();
+};
+
+/* PDF */
+function makePDF(s){
+ const d=new window.jspdf.jsPDF({unit:"pt",format:"letter"}),M=40,R=572,CW=(R-M-24)/3;let y=0;
+ const hl=(yy,w=.8)=>{d.setDrawColor(60);d.setLineWidth(w);d.line(M,yy,R,yy)};
+ const T=(t,x,yy,sz,b,c)=>{d.setFont("helvetica",b?"bold":"normal");d.setFontSize(sz);d.setTextColor(c||0);d.text(t,x,yy)};
+ const box=(x,yy,w,h)=>{d.setFillColor(224,242,252);d.setDrawColor(140,198,235);d.setLineWidth(.8);d.rect(x,yy,w,h,"FD")};
+ const title=()=>{d.setFont("helvetica","bold");d.setFontSize(14);d.setTextColor(30,100,170);d.text("INDIAN INSTITUTE OF TECHNOLOGY, KHARAGPUR",306,48,{align:"center"});d.setFontSize(19);d.setTextColor(0);d.text("Feedback Form for Interns",306,74,{align:"center"});hl(86,1.5);y=114};
+ const field=(k,i)=>{const x=M+i*(CW+12);T(LBL[k],x,y,8.5,0,90);box(x,y+5,CW,20);T(s[k]||"",x+5,y+19,10)};
+ const table=(sc)=>{
+  const X=[0,1,2,3,4].map(i=>R-34-(4-i)*62);
+  hl(y);T("Criteria",M,y+16,10,1);LV.forEach((l,i)=>{d.setFont("helvetica","bold");d.setFontSize(8.5);d.setTextColor(0);d.text(l,X[i],y+16,{align:"center"})});
+  y+=24;hl(y);
+  sc.q.forEach((q,i)=>{T(q,M,y+15,10);X.forEach((x,j)=>{d.setDrawColor(140,198,235);d.setFillColor(224,242,252);d.setLineWidth(1);d.circle(x,y+11,6.5,"FD");if(s.r[sc.k+i]===j){d.setFillColor(30,100,170);d.circle(x,y+11,3.6,"F")}});y+=24;hl(y)});
+ };
+ title();T("Intern Details",M,y,14,1);y+=12;hl(y);y+=16;
+ [["name","roll","year"],["org","place","role"],["doj","doe","dur"],["sup","by"]].forEach(r=>{r.forEach((k,i)=>field(k,i));y+=44});
+ hl(y-8,.5);
+ y+=24;T(SEC[0].t,M,y,14,1);y+=10;table(SEC[0]);
+ y+=34;T(SEC[1].t,M,y,14,1);y+=10;table(SEC[1]);
+ d.addPage();title();
+ T("Overall Evaluation",M,y,14,1);y+=10;hl(y);y+=14;
+ T("Remarks",M,y+4,11);box(M+200,y-8,R-M-200,120);
+ d.setFont("helvetica","normal");d.setFontSize(10);d.setTextColor(0);d.text(d.splitTextToSize(s.remarks||"",R-M-215),M+206,y+8);
+ y+=135;hl(y);y+=26;
+ const w=(R-M-30)/2;
+ [["m","Manager Signature"]].forEach(([k,l],i)=>{
+  const x=M+i*(w+30);T(l,x,y,11,1);box(x,y+8,w,95);
+  if(s.sig[k]){const hh=80,ww=Math.min(w-12,hh*8/3);d.addImage(s.sig[k],"PNG",x+(w-ww)/2,y+15,ww,Math.min(hh,ww*3/8));
+   T("Signed: "+new Date().toLocaleDateString("en-GB"),x,y+118,9,0,90)}
+ });
+ return d;
+}
+const ENDPOINT="https://script.google.com/macros/s/AKfycbxrPGMGx1wHfHPmiUOgBmCdkso0Rob2p7L2UI9C1J8-BmWeR-qNd1rQyD5WT4C0csw3/exec";
+$("dl").textContent=ENDPOINT?"Submit":"Submit (saves PDF)";
+$("dl").onclick=async()=>{
+ const s=S[cur];
+ const miss=8-Object.keys(s.r).length;
+ if(miss>0||!s.sig.m){$("msg").textContent=(miss>0?`Please answer all ratings (${miss} left). `:"")+(!s.sig.m?"Manager signature is needed.":"");return}
+ $("msg").textContent="Preparing PDF...";
+ let d,blob,fn;
+ try{d=makePDF(s);blob=d.output("blob");fn="Feedback_Form_"+s.name.replace(/\s+/g,"_")+".pdf"}
+ catch(e){$("msg").textContent="Couldn't create the PDF: "+(e&&e.message||e);return}
+ if(ENDPOINT){
+  try{$("msg").textContent="Submitting...";const b64=d.output("datauristring").split(",")[1];
+   await fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({name:s.name,filename:fn,pdf:b64,
+    headers:[...FIELDS.map(f=>f[1]),...SEC.flatMap(sc=>sc.q),"Remarks"],
+    row:[...FIELDS.map(([k])=>s[k]),...SEC.flatMap(sc=>sc.q.map((q,i)=>LV[s.r[sc.k+i]])),s.remarks]})});
+   $("msg").textContent="Submitted. The PDF has been emailed.";}
+  catch(e){$("msg").textContent="Couldn't submit: "+(e&&e.message||e)}
+  return}
+ let dl=null;
+ try{dl=window.claude?await window.claude.use("downloads"):null}catch(e){}
+ if(dl){
+  try{await dl.save({filename:fn,data:blob});$("msg").textContent="Saved. You can attach it in Gmail.";return}
+  catch(e){if(e&&e.code=="declined"){$("msg").textContent="Download cancelled.";return}}
+ }
+ // fallback for standalone browser tabs
+ try{d.save(fn)}catch(e){}
+ const url=URL.createObjectURL(blob);
+ $("msg").innerHTML=`If the download didn't start, <a href="${url}" target="_blank" rel="noopener" download="${fn}" style="color:var(--acc)">tap here to open the PDF</a>.`;
+};
+render();
+</script>
+</body>
+</html>
